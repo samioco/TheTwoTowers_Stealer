@@ -1,0 +1,55 @@
+#CLASS 0
+$CLASS = "Tools|Stealer|StealerGWSCamp"
+#AL StealerGWSCamp {
+StealerGWSCampINIT
+StealerNextRoom
+} $CLASS
+
+#AL StealerGWSCampINIT {
+RESET_StealerVariables
+StealerDeactivatetriggers
+#VAR Stealer {"GWSCamp"} {} VAR
+StealerCountMobs @Stealer
+#T+ GWSCampGuardBlock
+#T+ GWSCampInside
+} $CLASS
+
+#AL StealerGWSCampEXE {
+$CurRoom=%lower(@CurRoom)
+$zoneName=%zonename(%roomzone($CurRoom))
+$myZoneName=%zonename(%roomzone(%roomnum()))
+$myRoomID=%lower(%roomid())
+#VAR StealerReady {} {} VAR
+#IF ((%pos(%lower("Supply Outpost"),%lower($zoneName))) && (!%pos(%lower("Supply Outpost"),%lower($myZoneName))) && ($CurRoom!=%lower("Agrimar"))) {
+  ActionAdd "GWSCampGetInside"
+} {ActionAdd "#VAR StealerReady {1} {} VAR;StealerEXE"}
+ActionNext
+} $CLASS
+
+#AL GWSCampGetInside {
+ClassOn Stealer
+#T+ GWSCampGuardBlock
+#T+ GWSCampInside
+#WALK GWSCampPath1
+} $CLASS
+
+$CLASS = "Tools|Stealer|Settings"
+#TR GWSCampInside {({"A path through the outpost|A small living quarters"})} {
+#T- GWSCampInside
+#T- GWSCampGuardBlock
+#VAR StealerReady {1} {} VAR
+ActionAdd "StealerEXE"
+ActionNext
+} $CLASS
+
+#TR GWSCampGuardBlock {The guards block your way into the camp!} {
+#T- GWSCampGuardBlock
+#WAIT 1000
+#WALK GWSCamp
+sneak enter
+} $CLASS
+
+#T- GWSCampInside
+#T- GWSCampGuardBlock
+
+#CLASS 0
