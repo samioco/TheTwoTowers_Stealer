@@ -1,0 +1,83 @@
+#CLASS 0
+$CLASS = "Tools|Stealer|Settings"
+
+#TR HideFail {{@Messages_StealerHideFail}} {SysMsg Hide failed. Hiding again;#WAIT 100;hide} $CLASS
+#TR HideSuccess {{@Messages_StealerHideSuccess}} {#WAIT 100;StealerEXE} $CLASS
+
+#TR StealerCooldown {{@Messages_StealerCooldownOn}} {StealerCooldownSet} $CLASS
+#TR StealAgain {{@Messages_StealerTryAgain}} {StealAgain} $CLASS
+
+#TR StealerNextMob {({@Messages_StealerNextMob})} {
+#IF (%1="You can't get your hands on any gold.") {StealerAbortRatioAdd}
+#IF (%1="Don't bother stealing now. Take it from the corpse!") {get gold from corpse}
+//#ALA "Alarm_Stealer" +1 {StealerNextMob} $CLASS
+StealerNextMob
+} $CLASS
+
+#TR GoldInPockets {You put (%d) gold in your pockets.} {StealerAbortRatioAdd %1} $CLASS
+
+#TR GoldCheck {You search your pockets and find (%d) gold.} {
+$Stealer=%lower(@Stealer)
+#IF ((%1>3000) AND (%begins($Stealer,%lower("Baraddur"))) AND (@AutoDeposit)) {
+StealPause
+#VAR CurRoom {%roomnum()} {} VAR
+ClassOff Stealer
+ActionAdd "StealerEXE"
+$returnRoom = %roomnum();#IF (%roomid()) {$returnRoom=%roomid()}
+ActionAdd %concat("#WALK ",$returnRoom,";ActionNext")
+#ECHO Walking to BDB to deposit...
+#WAIT 1000;#WALK BDB;deposit all but 200;gold
+ActionNext
+}
+} $CLASS
+
+#TR StealerLowEP {({@Messages_StealerLowEP})} {
+#SW (%ismember(%1,"Your vision begins to get a little hazy.|Your vision becomes weaker.")) {
+  #CW high,green
+  #VAR NeedES {1} {} VAR
+}
+StealerHealMe
+} $CLASS
+
+#TR StealerCombat {{@Messages_StealerCombat}} {StealerNextRoom} $CLASS
+
+#TR CorsairKeepFail {{@Messages_StealerCorsairKeepFail}} {
+#WALK CorSP
+StealStop
+ActionAdd "Stealer"
+ActionNext
+} $CLASS
+
+#TR StealWhat {Steal what?  You can't see anything!} {
+ActionAdd "StealNow"
+SIGHT On
+} $CLASS
+
+#TR CantStealWhileMounted {You cannot do that while mounted!} {
+dismount
+StealerEXE
+} $CLASS
+
+#TR NeedFreeHand {You'll need a free hand to steal something.} {
+sss
+do unhand knife,unhand black dagger
+ActionAdd "StealNow"
+ActionNext
+} $CLASS
+
+#TR AutoDeposit {The teller says: You are over the limit of the bank system.} {#VAR AutoDeposit {} VAR} $CLASS
+#T+ HideSuccess
+#T+ HideFail
+#T+ StealerCooldown
+#T+ StealAgain
+#T+ StealerNextMob
+#T+ GoldInPockets
+#T+ GoldCheck
+#T+ StealWhat
+#T+ StealerCombat
+#T+ StealerLowEP
+#T+ CantStealWhileMounted
+#T+ NeedFreeHand
+#T+ AutoDeposit
+ClassOff $CLASS
+#CLASS 0
