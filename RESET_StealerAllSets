@@ -1,0 +1,232 @@
+#CLASS 0
+#VAR StealerAllSets {} {} VAR
+#ADDI StealerAllSets "BaraddurGates"
+#ADDI StealerAllSets "BaraddurFloor1"
+#ADDI StealerAllSets "BaraddurFloor2"
+#ADDI StealerAllSets "BaraddurStairs"
+#ADDI StealerAllSets "Carchost"
+#ADDI StealerAllSets "Narchost"
+#ADDI StealerAllSets "CirithUngol"
+#ADDI StealerAllSets "MinasMorgulGates"
+#ADDI StealerAllSets "Gothmog"
+#ADDI StealerAllSets "MinasTirithLower"
+#ADDI StealerAllSets "MinasTirithUpper"
+//#ADDI StealerAllSets "Pelennor"
+//#ADDI StealerAllSets "Anorien"
+#ADDI StealerAllSets "GWSCamp"
+#ADDI StealerAllSets "Lothlorien"
+#ADDI StealerAllSets "LogCamp"
+#ADDI StealerAllSets "CorsairKeep"
+
+#VAR StealerBDSets {} {} VAR
+#ADDI StealerBDSets "BaraddurGates"
+#ADDI StealerBDSets "BaraddurFloor1"
+#ADDI StealerBDSets "BaraddurFloor2"
+#ADDI StealerBDSets "BaraddurStairs"
+
+#VAR StealerMordorSets {} {} VAR
+#ADDI StealerMordorSets "BaraddurGates"
+#ADDI StealerMordorSets "BaraddurFloor1"
+#ADDI StealerMordorSets "BaraddurFloor2"
+#ADDI StealerMordorSets "BaraddurStairs"
+#ADDI StealerMordorSets "Carchost"
+#ADDI StealerMordorSets "Narchost"
+#ADDI StealerMordorSets "CirithUngol"
+#ADDI StealerMordorSets "MinasMorgulGates"
+
+#VAR StealerBDStairMobs {} {} VAR
+#ADDI StealerBDStairMobs "An Uruk warrior"
+#ADDI StealerBDStairMobs "A growling Olog-hai"
+#ADDI StealerBDStairMobs "A smelly uruk"
+#ADDI StealerBDStairMobs "A hideous orc"
+#ADDI StealerBDStairMobs "A dark sorcerer"
+#ADDI StealerBDStairMobs "A hulking easterling"
+#ADDI StealerBDStairMobs "A troll guard"
+#ADDI StealerBDStairMobs "A massive Uruk-hai"
+
+#VAR StealerArdaSets {} {} VAR
+#ADDI StealerArdaSets "Gothmog"
+#ADDI StealerArdaSets "MinasTirithLower"
+#ADDI StealerArdaSets "MinasTirithUpper"
+//#ADDI StealerArdaSets "Pelennor"
+//#ADDI StealerArdaSets "Anorien"
+#ADDI StealerArdaSets "GWSCamp"
+#ADDI StealerArdaSets "Lothlorien"
+#ADDI StealerArdaSets "LogCamp"
+
+#VAR StealerBaraddurGates {} {} VAR
+#ADDI StealerBaraddurGates "BDin||troll|troll 2|troll 3|easterling|easterling 2|officer|officer 2"
+#ADDI StealerBaraddurGates "BDinSW||troll|troll 2|easterling|officer|officer 2|officer 3"
+#ADDI StealerBaraddurGates "BDinNE||troll|troll 2|easterling|officer|officer 2"
+#ADDI StealerBaraddurGates "BDinNW||troll|troll 2|easterling|easterling 2|officer|officer 2"
+
+#VAR StealerBaraddurFloor1 {} {} VAR
+#ADDI StealerBaraddurFloor1 "SOTE||priestess|disciple|disciple 2"
+#ADDI StealerBaraddurFloor1 "BDGen||general|general 2"
+#ADDI StealerBaraddurFloor1 "BDGen2||general|general 2"
+#ADDI StealerBaraddurFloor1 "BDHaradGen||general"
+#ADDI StealerBaraddurFloor1 "BDAcolyte||disciple"
+
+#VAR StealerBaraddurFloor2 {} {} VAR
+#ADDI StealerBaraddurFloor2 "BDArm||smith"
+#ADDI StealerBaraddurFloor2 "BDSmith||smith"
+#ADDI StealerBaraddurFloor2 "BDTrain||easterling"
+#ADDI StealerBaraddurFloor2 "BDShop||figure"
+#ADDI StealerBaraddurFloor2 "Rimrol||rimrol"
+#ADDI StealerBaraddurFloor2 "BD2Mess||troll|orc"
+#ADDI StealerBaraddurFloor2 "BD2Bunk1||troll"
+#ADDI StealerBaraddurFloor2 "BD2Bunk2||troll|orc"
+#ADDI StealerBaraddurFloor2 "SparkKey||troll|orc"
+#ADDI StealerBaraddurFloor2 "SparkOut||orc"
+
+#VAR StealerCarchost {} {} VAR
+#ADDI StealerCarchost "Carsok||sokralg"
+#ADDI StealerCarchost "Corkhdenkh||corkhdenkh"
+#ADDI StealerCarchost "Ulk||ulkhalad"
+#ADDI StealerCarchost "CarDorm||orc 3"
+
+#VAR StealerNarchost {} {} VAR
+#ADDI StealerNarchost "NarchostHall||guard|guard 2"
+#ADDI StealerNarchost "NarchostGeneral||guard|guard 2|general"
+#ADDI StealerNarchost "NarchostGuards||guard|guard 2"
+#ADDI StealerNarchost "NarBase||guard|guard 2"
+#ADDI StealerNarchost "Scarface||scarface"
+#ADDI StealerNarchost "NarchostTop||archer|archer 2"
+#ADDI StealerNarchost "Narchost_SleepingArea1||orc|orc 2|orc 2"
+#ADDI StealerNarchost "Narchost_SleepingArea2||orc|orc 2|orc 3"
+#ADDI StealerNarchost "Nar3||archer"
+#ADDI StealerNarchost "Nar2||archer"
+#ADDI StealerNarchost "Nar1||archer"
+
+#VAR StealerCirithUngol {} {} VAR
+#ADDI StealerCirithUngol "BlackFlask||orc"
+#ADDI StealerCirithUngol "CUCarnage||orc"
+#ADDI StealerCirithUngol "CUTurret||orc"
+#ADDI StealerCirithUngol "CU4OpenSpace1||orc"
+#ADDI StealerCirithUngol "MetalFlask||orc"
+#ADDI StealerCirithUngol "CU4OpenSpace2||archer"
+#ADDI StealerCirithUngol "CU4OpenSpace3||archer"
+#ADDI StealerCirithUngol "CUMail||orc"
+#ADDI StealerCirithUngol "CUBalcony||ingornt"
+#ADDI StealerCirithUngol "CUOfficer||orc|orc 2|orc 3"
+#ADDI StealerCirithUngol "CLSKey||orc"
+#ADDI StealerCirithUngol "CUFortifiedBalcony||archer"
+#ADDI StealerCirithUngol "CULongBarracks||orc|orc 2|orc 3"
+#ADDI StealerCirithUngol "CUMessyBarracks||orc|orc 2"
+#ADDI StealerCirithUngol "CUFilthyChamber||orc"
+#ADDI StealerCirithUngol "CUGate||guard|guard 2"
+
+#VAR StealerMinasMorgulGates {} {} VAR
+#ADDI StealerMinasMorgulGates "MorgulGate||commander|sentry|sentry 2"
+
+#VAR StealerGothmog {} {} VAR
+#ADDI StealerGothmog "GothmogTent||gothmog|commander"
+
+#VAR StealerMinasTirithLower {} {} VAR
+#ADDI StealerMinasTirithLower "MT2Archers1||archer|archer 2|archer 3|archer 4"
+#ADDI StealerMinasTirithLower "MT2Archers2||archer|archer 2|archer 3"
+#ADDI StealerMinasTirithLower "MT2Archers3||archer|archer 2|archer 3"
+#ADDI StealerMinasTirithLower "Darpalan||darpalan"
+#ADDI StealerMinasTirithLower "Apothecary||apothecary"
+#ADDI StealerMinasTirithLower "MTMerchant||merchant"
+#ADDI StealerMinasTirithLower "MT2GuardMessHall||guard|guard 2"
+#ADDI StealerMinasTirithLower "Kavros||guard 2"
+#ADDI StealerMinasTirithLower "Dornegil||dornegil"
+
+#VAR StealerMinasTirithUpper {} {} VAR
+#ADDI StealerMinasTirithUpper "MTLaundry||tabetha|norlan"
+#ADDI StealerMinasTirithUpper "Hidler||hidler"
+#ADDI StealerMinasTirithUpper "Arin||arin"
+#ADDI StealerMinasTirithUpper "MT4Gate||guard|guard 2"
+#ADDI StealerMinasTirithUpper "MT4SouthWatchTowerTop||guard|guard 2"
+#ADDI StealerMinasTirithUpper "MT4SouthWatchTower||guard"
+#ADDI StealerMinasTirithUpper "MTGuardNotes||guard 2|guard 3"
+#ADDI StealerMinasTirithUpper "MT4Storeroom||guard|guard 2"
+#ADDI StealerMinasTirithUpper "MT4NorthWatchTowerTop||guard|guard 2"
+#ADDI StealerMinasTirithUpper "MT4NorthWatchTower||guard"
+#ADDI StealerMinasTirithUpper "Leord||leord"
+#ADDI StealerMinasTirithUpper "Jalex||jalex"
+#ADDI StealerMinasTirithUpper "MT4Kid||man"
+#ADDI StealerMinasTirithUpper "WaterwrightsMembers||waterwright|waterwright 2|waterwright 3"
+#ADDI StealerMinasTirithUpper "MT5Gate||guard|guard 2"
+#ADDI StealerMinasTirithUpper "Regal||knight"
+#ADDI StealerMinasTirithUpper "MTButler||butler"
+#ADDI StealerMinasTirithUpper "MTCook||cook"
+#ADDI StealerMinasTirithUpper "Raphial||raphial"
+#ADDI StealerMinasTirithUpper "MTChain||trathorn"
+#ADDI StealerMinasTirithUpper "MT6Gate||guard|guard 2"
+#ADDI StealerMinasTirithUpper "MT6Battlement1||archer|archer 2"
+#ADDI StealerMinasTirithUpper "MT6Battlement2||archer|archer 2"
+
+#VAR StealerLothlorien {} {} VAR
+#ADDI StealerLothlorien "Haldir||haldir"
+#ADDI StealerLothlorien "LothThief||lethilspyde"
+#ADDI StealerLothlorien "Khamul||khamul|guard|guard 2"
+#ADDI StealerLothlorien "KhamulWarRoom||lord|lord 2|lord 3"
+#ADDI StealerLothlorien "KhamCampKnoll||guard|guard 2|troll"
+#ADDI StealerLothlorien "PAGauntsOut||underlord"
+#ADDI StealerLothlorien "KhamCampTrolls||small troll|small troll 2"
+#ADDI StealerLothlorien "KhamCampOlogs||olog|olog 2"
+#ADDI StealerLothlorien "KhamCampLumberjacks||lumberjack|lumberjack 2"
+#ADDI StealerLothlorien "Grimbeorn||grimbeorn"
+
+#VAR StealerGWSCamp {} {} VAR
+#ADDI StealerGWSCamp "GWSCamp||guard|guard 2"
+#ADDI StealerGWSCamp "GWSCampPath1||guard|guard 2"
+#ADDI StealerGWSCamp "GWSCampPath3||guard"
+#ADDI StealerGWSCamp "GWS||commander"
+#ADDI StealerGWSCamp "Agrimar||agrimar"
+
+#VAR StealerLogCamp {} {} VAR
+#ADDI StealerLogCamp "Gunthruktu||gunthruktu"
+#ADDI StealerLogCamp "LogCampOffice||guard"
+#ADDI StealerLogCamp "LogCampGuards||guard|guard 2"
+#ADDI StealerLogCamp "LogCampKitchen||cook"
+#ADDI StealerLogCamp "LogCampInfirmary||worker"
+
+#VAR StealerCorsairKeep {} {} VAR
+#ADDI StealerCorsairKeep "CorMail||scholar|courier|clerk"
+#ADDI StealerCorsairKeep "CorKeepCaptain||captain"
+#ADDI StealerCorsairKeep "CorKeepSniffer||scentmaster"
+#ADDI StealerCorsairKeep "CorKeepEntrance||guard|guard 2"
+#ADDI StealerCorsairKeep "CorKeepBunkRoom||guard|guard 2|guard 3|guard 4"
+#ADDI StealerCorsairKeep "CorTopNE||archer"
+#ADDI StealerCorsairKeep "CorTopSE||archer"
+#ADDI StealerCorsairKeep "CorTopSW||archer"
+#ADDI StealerCorsairKeep "CorTopNW||archer"
+
+#VAR StealerPelennorRooms {} {} VAR
+#ADDI StealerPelennorRooms "The Pelennor Fields|The Rammas Echor"
+#ADDI StealerPelennorRooms "The road to Osgiliath"
+#ADDI StealerPelennorRooms "The Great West Road"
+#ADDI StealerPelennorRooms "A trench full of flames and smoke"
+#ADDI StealerPelennorRooms "The Harlond Path"
+#ADDI StealerPelennorRooms "The South Road"
+#ADDI StealerPelennorRooms "The cliffs of Mindolluin"
+#ADDI StealerPelennorRooms "The Great Gates of Minas Tirith"
+#ADDI StealerPelennorRooms "A deep trench, filled with smoke and ruin"
+
+#VAR StealerPelennorMobs {} {} VAR
+#ADDI StealerPelennorMobs "A massive mountain-troll towers over his foes"
+#ADDI StealerPelennorMobs "A massive mountain troll"
+
+#VAR StealerAnorienMobs {} {} VAR
+#ADDI StealerAnorienMobs "A massive mountain-troll towers over his foes"
+#ADDI StealerAnorienMobs "A massive mountain troll"
+
+#VAR StealerAnorienRooms {} {} VAR
+#ADDI StealerAnorienRooms "West of Osgiliath"
+#ADDI StealerAnorienRooms "The Plains"
+#ADDI StealerAnorienRooms "The Southward Road"
+#ADDI StealerAnorienRooms "A quiet grassy area"
+#ADDI StealerAnorienRooms "Outside the Rammas Echor"
+#ADDI StealerAnorienRooms "The White Mountains"
+#ADDI StealerAnorienRooms "The Great West Road"
+#ADDI StealerAnorienRooms "A grassy river bank"
+#ADDI StealerAnorienRooms "Rocky Ground"
+#ADDI StealerAnorienRooms "Entrance to an orc outpost"
+#ADDI StealerAnorienRooms "Amon Din"
+#ADDI StealerAnorienRooms "Druadan Forest"
+#ADDI StealerAnorienRooms "Stonewain Valley"
+
+#CLASS 0
