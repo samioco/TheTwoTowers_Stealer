@@ -1,0 +1,50 @@
+#CLASS 0
+
+#VAR Messages_StealerSuccess {} {} VAR
+#ADDI Messages_StealerSuccess "You steal"
+
+#VAR Messages_StealerFail {} {} VAR
+#ADDI Messages_StealerFail "You try to steal the item, but you are not successful."
+#ADDI Messages_StealerFail "You can't get your hands on any gold."
+
+#VAR Messages_StealerCooldownOn {} {} VAR
+#FORALL @Messages_StealerSuccess {#ADDI Messages_StealerCooldownOn %i}
+#FORALL @Messages_StealerFail {#ADDI Messages_StealerCooldownOn %i}
+
+#VAR Messages_StealerTryAgain {} {} VAR
+#ADDI Messages_StealerTryAgain "You try to steal the item, but you are not successful."
+#ADDI Messages_StealerTryAgain "You need a moment to regain your composure from your last theft attempt."
+
+#VAR Messages_StealerNextMob {} {} VAR
+#ADDI Messages_StealerNextMob "You steal"
+#ADDI Messages_StealerNextMob "There's no one here by that name."
+#ADDI Messages_StealerNextMob "is in combat, and you can't get close enough to steal without"
+#ADDI Messages_StealerNextMob "You can't get your hands on any gold."
+#ADDI Messages_StealerNextMob "Don't bother stealing now. Take it from the corpse!"
+
+#VAR Messages_StealerLowEP {} {} VAR
+#ADDI Messages_StealerLowEP "You are too tired to"
+#ADDI Messages_StealerLowEP "You do not have the energy to"
+#ADDI Messages_StealerLowEP "You don't have the energy to"
+#ADDI Messages_StealerLowEP "Your vision begins to get a little hazy."
+#ADDI Messages_StealerLowEP "Your vision becomes weaker."
+
+#VAR Messages_StealerCombat {} {} VAR
+#ADDI Messages_StealerCombat "You are too busy fighting to hide anywhere!"
+#ADDI Messages_StealerCombat "You are too busy with the battle to try to steal anything."
+
+#VAR Messages_StealerHideSuccess {} {} VAR
+#ADDI Messages_StealerHideSuccess "You slip into the shadows and try to look like nothing."
+#ADDI Messages_StealerHideSuccess "You're already hiding, don't give yourself away!"
+
+#VAR Messages_StealerHideFail {} {} VAR
+#ADDI Messages_StealerHideFail "You cannot hide again so fast!"
+#ADDI Messages_StealerHideFail "You run around the room but fail to find any place to hide."
+
+#VAR Messages_StealerCorsairKeepFail {} {} VAR
+#ADDI Messages_StealerCorsairKeepFail "quickly stands up and prepares to fight!"
+#ADDI Messages_StealerCorsairKeepFail "jumps up from his bunk, grabs his sword and prepares to fight!"
+#ADDI Messages_StealerCorsairKeepFail "runs into the room."
+#ADDI Messages_StealerCorsairKeepFail "starts following you."
+
+#CLASS 0
