@@ -1,0 +1,114 @@
+#CLASS 0
+$CLASS = "Tools|Stealer|StealerMinasTirith"
+
+#AL StealerMinasTirith {
+StealerAddSet "MinasTirithLower"
+StealerAddSet "MinasTirithUpper"
+Stealer
+} $CLASS
+
+#AL StealerMinasTirithINIT {
+RESET_StealerVariables
+StealerDeactivatetriggers
+#IF ((%0) && (%ismember(%lower(%0),%lower(@StealerAllSets)))) {#VAR Stealer {%0} {} VAR}
+StealerCountMobs @Stealer
+} $CLASS
+
+#AL StealerMinasTirithLower {
+StealerMinasTirithINIT "MinasTirithLower"
+StealerMinasTirithEXE
+} $CLASS
+
+#AL StealerMinasTirithUpper {
+StealerMinasTirithINIT "MinasTirithUpper"
+StealerMinasTirithEXE
+} $CLASS
+
+#AL StealerMinasTirithEXE {
+$CurRoom=%lower(@CurRoom)
+$zoneName=%lower(%zonename(%roomzone($CurRoom)))
+$MyAlign=%lower(@MyPublicAlign)
+$Stealer=%lower(@Stealer)
+#T+ MinasTirithInside
+#T+ GrondBlock
+#T+ RejectEvils
+#T+ MinasTirithRope
+ActionAdd "#VAR StealerReady {1} {} VAR;StealerNextRoom"
+#IF ((%pos(%lower("MinasTirithUpper"),$Stealer)) && (!%ismember($MyAlign,%lower(@Alignments_Moral)))) {
+  ActionDelete "#T+ DisguiseCombat;DisguiseAlign angelic"
+  ActionAdd "#T+ DisguiseCombat;DisguiseAlign moral"
+}
+#IF (!%pos(%lower("Minas Tirith"),%lower(%zonename()))) {ActionAdd "MinasTirithGetInside"}
+ActionNext
+} $CLASS
+
+#AL MinasTirithNextRoomConditions {
+$CurRoom=%lower(@CurRoom)
+#SW ($CurRoom=%lower("Apothecary")) {ActionAdd "#WALK ApothecaryStreet;#T+ ApothecaryDoor;glance north door"
+} ($CurRoom=%lower("MTMerchant")) {ActionAdd "#WALK MTMerchantStreet;#T+ MTMerchantDoor;glance west door"
+} ($CurRoom=%lower("Raphial")) {ActionAdd "#WALK Raphial;#T+ Raphial;#VAR StealerAction {} {} VAR;sit in chair"
+} {ActionAdd "#VAR StealerReady {1} {} VAR;StealerEXE"}
+ActionNext
+} $CLASS
+
+#AL MinasTirithGetInside {
+ClassOn Stealer
+#T+ MinasTirithRope
+#T+ GrondBlock
+#T+ RejectEvils
+#T+ MinasTirithInside
+#WALK MTin
+} $CLASS
+
+
+$CLASS = "Tools|Stealer|Settings"
+#TR MinasTirithRope {a rope to you if you want in, what do you say?} {sss;hands;yes} $CLASS
+
+#TR MinasTirithInside {({"Inside the gates of Minas Tirith|start to climb, sweat dripping off your forehead as your muscles"})} {
+#T- MinasTirithInside
+ActionNext
+} $CLASS
+
+#TR DisguiseCombat {You're in combat, it's too late to disguise yourself.} {
+#T- DisguiseCombat
+#WALK MTin
+DisguiseAlign moral
+} $CLASS
+
+#TR GrondBlock {({"You dare not move while Grond is present!|city open to her vile enemies.  Grond is removed and the forces of"})} {
+#SW (%1="You dare not move while Grond is present!") {rest on} {enter}
+} $CLASS
+
+#TR DisguiseCombat {You are pushed away, Mordor scum!  No entry for you.} {
+#DELI StealerQueue "MinasTirithLower"
+#DELI StealerQueue "MinasTirithUpper"
+#IF (%pos("MinasTirith",@Stealer)) {StealerNextSet}
+} $CLASS
+
+#TR MTMerchantDoor {({"The west door is open.|The west door is bashed open.|The west door is closed.|The west door is locked."})} {
+#T- MTMerchantDoor
+#SW (%1="The west door is locked.") {StealerNextMob} {#VAR StealerReady {1} {} VAR;StealerEXE}
+} $CLASS
+
+#TR ApothecaryDoor {({"The north door is open.|The north door is bashed open.|The north door is closed.|The north door is locked."})} {
+#T- ApothecaryDoor
+#SW (%1="The north door is locked.") {StealerNextMob} {#VAR StealerReady {1} {} VAR;StealerEXE}
+} $CLASS
+
+#TR Raphial {{"grab you and throw you to the ground.|You think twice about sitting on the chair."}} {
+#T- Raphial
+#VAR StealerReady {1} {} VAR
+StealerEXE
+} $CLASS
+
+#T- MinasTirithInside
+#T- MinasTirithRope
+#T- GrondBlock
+#T- RejectEvils
+#T- DisguiseCombat
+#T- ApothecaryDoor
+#T- MTMerchantDoor
+#T- Raphial
+
+
+#CLASS 0
