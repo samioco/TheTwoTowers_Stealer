@@ -1,0 +1,177 @@
+#CLASS 0
+$CLASS = "Tools|Stealer|EXE"
+$Settings = "Tools|Stealer|Settings"
+
+#AL Stealer {
+//Usage: Stealer <SetName>
+RESET_StealerAllSets
+$param=%0
+$Stealer=%lower(@Stealer)
+#IF (%ismember(%lower($param),%lower(@StealerAllSets))) {#VAR Stealer {%item(@StealerAllSets,%ismember(%lower($param),%lower(@StealerAllSets)))} {} VAR}
+#ECHO Stealer: $Stealer
+#SW ($Stealer) {
+  StealerPrep
+} (@StealerQueue) {
+  StealerNextSet
+} {SysMsg "Missing Argument. Usage: Stealer <SetName>"}
+} $CLASS
+
+#AL StealerPrep {
+$Stealer=%lower(@Stealer)
+StealerCountMobs @Stealer
+wimpy
+#SW (%pos(%lower("BaraddurStairs"),$Stealer)) {StealerBDStairs
+} (%pos(%lower("MinasTirithLower"),$Stealer)) {StealerMinasTirithLower
+} (%pos(%lower("MinasTirithUpper"),$Stealer)) {StealerMinasTirithUpper
+} (%pos(%lower("GWSCamp"),$Stealer)) {StealerGWSCamp
+} (%pos(%lower("LogCamp"),$Stealer)) {StealerLogCamp
+} (%pos(%lower("Pelennor"),$Stealer)) {StealerPelennor
+} (%pos(%lower("Anorien"),$Stealer)) {StealerAnorien
+} {
+  #VAR StealerReady {1} {} VAR
+  StealerNextRoom
+  }
+} $CLASS
+
+#AL StealerEXEPrep {
+$Stealer=%lower(@Stealer)
+#SW (%pos(%lower("BaraddurStairs"),$Stealer)) {StealerBDStairsEXE
+} (%pos(%lower("Pelennor"),$Stealer)) {StealerColumnWalkerEXE
+} (%pos(%lower("Anorien"),$Stealer)) {StealerColumnWalkerEXE
+} ((!@StealerReady) && (%pos(%lower("MinasTirith"),$Stealer))) {StealerMinasTirithEXE
+} ((!@StealerReady) && (%pos(%lower("GWSCamp"),$Stealer))) {StealerGWSCampEXE
+} ((!@StealerReady) && (%pos(%lower("LogCamp"),$Stealer))) {StealerLogCampEXE
+} ((!@StealerReady) && (%pos(%lower("CorsairKeep"),$Stealer))) {
+  #T+ CorsairKeepFail
+  #VAR StealerReady {1} {} VAR
+  StealerEXE
+} {
+  #VAR StealerReady {1} {} VAR
+  StealerEXE
+}
+} $CLASS
+
+#AL StealerEXE {
+$Stealer=%lower(@Stealer)
+$wait = %random(1,3)
+ActionDelete "StealerEXE"
+#IF (!@StealerReady) {
+  StealerEXEPrep
+} {
+  StealerAbortRatioCalculate
+  #IF (@StealerAbortRatio<0.4) {
+      ClassOn Stealer
+      StealerActivateCoretriggers
+      SysMsg Walking to: @CurRoom;#WALK @CurRoom
+      #VAR StealerAction {} {} VAR
+      #VAR StealTar {%item(@MobList,@iMob)} {} VAR
+      #VAR StealerAction {%concat("steal ",@StealItem," from ",@StealTar)} {} VAR
+      StealerGetRoomData
+      #IF ((%numitems(@MobList)>1) AND (!@Hidden)) {
+        #ECHO Multiple mobs. Not Hidden. Hiding...
+        hide
+      } {
+        #ECHO StealerEXE: Stealing...
+        #ALA "Alarm_NextMob" +$wait {StealNow} Tools|Stealer|Settings
+      }
+  } {StealerNextSet}
+}
+} $CLASS
+
+
+#AL StealerNextSet {
+$lastSet=%lower(@Stealer)
+$NextSet=""
+RESET_StealerVariables
+StealerDeactivatetriggers
+#UNT StealTimer
+#IF (%numitems(@StealerQueue)) {
+  StealerPop
+  #VAR Stealer {@StealerPop} {} VAR
+  ActionAdd "Stealer"
+  StealerNextSetConditions $lastSet
+  ActionNext
+} {
+  StealerEnd
+}
+} $CLASS
+
+#AL StealerNextSetConditions {
+$lastSet=%lower(%0)
+#SW (%pos(%lower("BaraddurStairs"),$lastSet)) {ActionAdd "#VAR HealerList {PBSH|RedH|FLSH} {} VAR;HealMeEXE"
+} (%pos(%lower("Narchost"),$lastSet)) {ActionAdd "#VAR HealerList {NarH} {} VAR;HealMeEXE"
+} (%pos(%lower("CirithUngol"),$lastSet)) {ActionAdd "#VAR HealerList {CUH} {} VAR;HealMeEXE"
+} (%pos(%lower("Lothlorien"),$lastSet)) {
+  ActionAdd "HealMe"
+  ActionAdd "#VAR HealerList {FramOH|DaleH|ALH|KnollH} {} VAR;HealMeEXE"
+} (%pos(%lower("LogCamp"),$lastSet)) {
+  ActionAdd "HealMe"
+  ActionAdd "#VAR HealerList {FramOH|DaleH|ALH|KnollH} {} VAR;HealMeEXE"
+} (%pos(%lower("CorsairKeep"),$lastSet)) {
+  ActionAdd "HealMe"
+  ActionAdd "#VAR HealerList {CorH|OutH|DHH} {} VAR;HealMeEXE"
+} {ActionAdd "HealMeEXE"
+}
+} $CLASS
+
+#AL StealerPop {
+$num=%number(%0)
+#IF ($num=-1) {$num=%numitems(@StealerQueue)}
+#SW ($num>0) {
+  #ECHO Deleting item $num from StealerQueue
+  #VAR StealerPop {%item(@StealerQueue,$num)} {} VAR
+  #DELN StealerQueue $num
+} {
+  #ECHO Deleting item 1 from StealerQueue
+  #VAR StealerPop {%item(@StealerQueue,1)} {} VAR
+  #DELN StealerQueue 1
+}
+StealerShow
+#ECHO Deleted StealerPop: @StealerPop
+} $CLASS
+
+#AL StealerAddSet {
+$set=%0
+#IF (%ismember(%lower($set),%lower(@StealerAllSets))) {
+  #ADDI StealerQueue $set
+  SysMsg Set Added: $set
+} {
+  SysMsg Set not recognized: $set
+}
+} $CLASS
+
+#AL StealerAllSets {
+Reset_Stealer
+#FORALL @StealerAllSets {#ADDI StealerQueue %i}
+#SW (@MyFaction="ER") {
+  #DELI StealerQueue "MinasTirithLower"
+  #DELI StealerQueue "MinasTirithUpper"
+}
+StealerShow
+} $CLASS
+
+#AL StealerClear {#VAR StealerQueue {} {} VAR} $CLASS
+
+#AL StealerBDSets {
+#VAR StealerQueue {} {} VAR
+#FORALL @StealerBDSets {#ADDI StealerQueue %i}
+StealerShow
+} $CLASS
+
+#AL StealerMordorSets {
+#VAR StealerQueue {} {} VAR
+#FORALL @StealerMordorSets {#ADDI StealerQueue %i}
+StealerShow
+} $CLASS
+
+#AL StealerArdaSets {
+#VAR StealerQueue {} {} VAR
+#FORALL @StealerArdaSets {#ADDI StealerQueue %i}
+#IF (@MyFaction="ER") {
+  #DELI StealerQueue "MinasTirithLower"
+  #DELI StealerQueue "MinasTirithUpper"
+}
+StealerShow
+} $CLASS
+
+#CLASS 0
