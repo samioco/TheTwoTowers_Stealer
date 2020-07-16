@@ -1,0 +1,53 @@
+#CLASS 0
+
+$CLASS = "Tools|Stealer|StealerLogCamp"
+#AL StealerLogCamp {
+StealerLogCampINIT
+StealerNextRoom
+} $CLASS
+
+#AL StealerLogCampINIT {
+RESET_StealerVariables
+StealerDeactivatetriggers
+#VAR Stealer {"LogCamp"} {} VAR
+StealerCountMobs @Stealer
+} $CLASS
+
+#AL StealerLogCampEXE {
+$CurRoom=%lower(@CurRoom)
+$zoneName=%zonename(%roomzone($CurRoom))
+$myZoneName=%zonename(%roomzone(%roomnum()))
+$myRoomID=%lower(%roomid())
+#VAR StealerReady {} {} VAR
+#IF ((%ismember($CurRoom,%lower("Gunthruktu"))) && (%lower(%roomid())!=%lower("Gunthruktu"))) {
+  ActionAdd "LogCampGetInside"
+} {ActionAdd "#VAR StealerReady {1} {} VAR;StealerEXE"}
+ActionNext
+} $CLASS
+
+#AL LogCampGetInside {
+ClassOn Stealer
+#T+ LogCampGunthruktu
+#T+ LogCampGuardBlock
+#WALK Gunthruktu
+} $CLASS
+
+$CLASS = "Tools|Stealer|Settings"
+#TR LogCampGuardBlock {The guard blocks your exit.} {
+#T- LogCampGuardBlock
+#WAIT 1000
+#WALK LogCampOffice
+sneak n
+} $CLASS
+
+#TR LogCampGunthruktu {^The Captain's Living Quarters} {
+#T- LogCampGunthruktu
+#T- LogCampGuardBlock
+#VAR StealerReady {1} {} VAR
+ActionAdd "StealerEXE"
+ActionNext
+} $CLASS
+
+#T- LogCampGunthruktu;#T- LogCampGuardBlock
+
+#CLASS 0
