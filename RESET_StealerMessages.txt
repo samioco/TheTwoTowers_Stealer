@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_StealerMessages#CLASS 0#AL RESET_StealerMessages {#CLASS 0
 
 #VAR Messages_StealerSuccess {} {} VAR
 #ADDI Messages_StealerSuccess "You steal"
@@ -48,3 +48,4 @@
 #ADDI Messages_StealerCorsairKeepFail "starts following you."
 
 #CLASS 0
+} _Stealer#CLASS 0

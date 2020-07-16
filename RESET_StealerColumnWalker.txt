@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_StealerColumnWalker#CLASS 0#AL RESET_StealerColumnWalker {#CLASS 0
 $CLASS = "Tools|Stealer|EXE"
 #AL StealerPelennor {
 StealerPelennorINIT
@@ -44,7 +44,7 @@ $currentRoomPos=0
 #SW (@StealerAction) {
   #WALK @CurRoom
   StealNow
-} (%numitems(@StealerMobListPositions)) {
+} (%numitems(@StealerMobListPositions)) {  
   $currentRoomPos=@StealerRoomCount
   $NextMobPos=%item(@StealerMobListPositions,%numitems(@StealerMobListPositions))
   #ECHO Removing last mob: %item(@StealerMobListPositions,%numitems(@StealerMobListPositions))
@@ -112,4 +112,4 @@ StealNow
 #T- StealerRoomShort
 #T- StealerMobCount
 
-#CLASS 0
+#CLASS 0} _Stealer#CLASS 0

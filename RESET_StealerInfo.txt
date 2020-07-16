@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_StealerInfo#CLASS 0#AL RESET_StealerInfo {#CLASS 0
 $CLASS = "Tools|Stealer|Info"
 #AL StealerDeactivatetriggers {
 #T- BaraddurStairMobs
@@ -156,3 +156,4 @@ SysMsg StealerAbortCount: @StealerAbortCount, Fail Ratio: %format(2,@StealerAbor
 } $CLASS
 
 #CLASS 0
+} _Stealer#CLASS 0

@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_StealerLogCamp#CLASS 0#AL RESET_StealerLogCamp {#CLASS 0
 
 $CLASS = "Tools|Stealer|StealerLogCamp"
 #AL StealerLogCamp {
@@ -50,4 +50,4 @@ ActionNext
 
 #T- LogCampGunthruktu;#T- LogCampGuardBlock
 
-#CLASS 0
+#CLASS 0} _Stealer#CLASS 0

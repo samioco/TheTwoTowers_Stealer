@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_StealerVariables#CLASS 0#AL RESET_StealerVariables {#CLASS 0
 #VAR Stealer {} {} VAR
 #VAR StealerPop {} {} VAR
 #VAR StealerReady {} {} VAR
@@ -21,4 +21,4 @@
 #VAR StealerAbortCount {0} {} VAR
 #VAR StealerAbortRatio {0} {} VAR
 #VAR MinasTirithInside {} {} VAR
-#CLASS 0
+#CLASS 0} _Stealer#CLASS 0

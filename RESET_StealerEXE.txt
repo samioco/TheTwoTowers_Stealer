@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_StealerEXE#CLASS 0#AL RESET_StealerEXE {#CLASS 0
 $CLASS = "Tools|Stealer|EXE"
 $Settings = "Tools|Stealer|Settings"
 
@@ -156,13 +156,13 @@ StealerShow
 #VAR StealerQueue {} {} VAR
 #FORALL @StealerBDSets {#ADDI StealerQueue %i}
 StealerShow
-} $CLASS
+} $CLASS 
 
 #AL StealerMordorSets {
 #VAR StealerQueue {} {} VAR
 #FORALL @StealerMordorSets {#ADDI StealerQueue %i}
 StealerShow
-} $CLASS
+} $CLASS 
 
 #AL StealerArdaSets {
 #VAR StealerQueue {} {} VAR
@@ -172,6 +172,7 @@ StealerShow
   #DELI StealerQueue "MinasTirithUpper"
 }
 StealerShow
-} $CLASS
+} $CLASS 
 
 #CLASS 0
+} _Stealer#CLASS 0

@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_StealerAllSets#CLASS 0#AL RESET_StealerAllSets {#CLASS 0
 #VAR StealerAllSets {} {} VAR
 #ADDI StealerAllSets "BaraddurGates"
 #ADDI StealerAllSets "BaraddurFloor1"
@@ -230,3 +230,4 @@
 #ADDI StealerAnorienRooms "Stonewain Valley"
 
 #CLASS 0
+} _Stealer#CLASS 0

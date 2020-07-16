@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_StealerSettings#CLASS 0#AL RESET_StealerSettings {#CLASS 0
 $CLASS = "Tools|Stealer|Settings"
 
 #TR HideFail {{@Messages_StealerHideFail}} {SysMsg Hide failed. Hiding again;#WAIT 100;hide} $CLASS
@@ -80,4 +80,4 @@ ActionNext
 #T+ NeedFreeHand
 #T+ AutoDeposit
 ClassOff $CLASS
-#CLASS 0
+#CLASS 0} _Stealer#CLASS 0

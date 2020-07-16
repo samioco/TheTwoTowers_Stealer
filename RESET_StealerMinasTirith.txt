@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_StealerMinasTirith#CLASS 0#AL RESET_StealerMinasTirith {#CLASS 0
 $CLASS = "Tools|Stealer|StealerMinasTirith"
 
 #AL StealerMinasTirith {
@@ -111,4 +111,4 @@ StealerEXE
 #T- Raphial
 
 
-#CLASS 0
+#CLASS 0} _Stealer#CLASS 0

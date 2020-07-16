@@ -1,4 +1,4 @@
-#CLASS 0
+//RESET_StealerGWSCamp#CLASS 0#AL RESET_StealerGWSCamp {#CLASS 0
 $CLASS = "Tools|Stealer|StealerGWSCamp"
 #AL StealerGWSCamp {
 StealerGWSCampINIT
@@ -52,4 +52,4 @@ sneak enter
 #T- GWSCampInside
 #T- GWSCampGuardBlock
 
-#CLASS 0
+#CLASS 0} _Stealer#CLASS 0
