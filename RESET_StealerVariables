@@ -1,0 +1,24 @@
+#CLASS 0
+#VAR Stealer {} {} VAR
+#VAR StealerPop {} {} VAR
+#VAR StealerReady {} {} VAR
+#VAR StealTar {} {} VAR
+#VAR StealItem {"all gold"} {} VAR
+#VAR CurRoom {} {} VAR
+#VAR iRoom {0} {} VAR
+#VAR iMob {0} {} VAR
+#VAR NeedES {} {} VAR
+#VAR MobList {} {} VAR
+#VAR AutoDeposit {0} {} VAR
+#VAR StealerAction {} {} VAR
+#VAR StealerMobs {} {} VAR
+#VAR StealerMobListPositions {} {} VAR
+#VAR StealerColumnNum {1} {} VAR
+#VAR StealerRoomCount {0} {} VAR
+#VAR StealerColumnTop {} {} VAR
+#VAR StealerColumnBottom {} {} VAR
+#VAR StealerMobCount {0} {} VAR
+#VAR StealerAbortCount {0} {} VAR
+#VAR StealerAbortRatio {0} {} VAR
+#VAR MinasTirithInside {} {} VAR
+#CLASS 0
