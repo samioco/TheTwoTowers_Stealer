@@ -1,0 +1,125 @@
+#CLASS 0
+$CLASS = "Tools|Stealer|Actions"
+$Settings = "Tools|Stealer|Settings"
+
+#AL StealerNextRoom {
+ClassOn Stealer
+$Stealer=%lower(@Stealer)
+$set=@{%concat("Stealer",@Stealer)}
+$neededEP=0
+ActionDelete "StealerNextRoom"
+#ECHO StealerNextRoom...
+#ADD iRoom 1
+#VAR iMob {0} VAR
+#VAR Hidden {0} {} VAR
+#VAR StealerAction {} {} VAR
+$wait = %random(1,3)*1000
+#WAIT $wait
+#SW (%pos(%lower("BaraddurStairs"),$Stealer)) {StealerBDStairsEXE
+} (%pos(%lower("Pelennor"),$Stealer)) {StealerColumnWalkerEXE
+} (%pos(%lower("Anorien"),$Stealer)) {StealerColumnWalkerEXE
+} {
+  #IF (@iRoom>%numitems($set)) {
+    SysMsg StealerCompleted: @Stealer
+    StealerNextSet
+  } {
+    StealerGetRoomData
+    #LOOP %numitems(@MobList) {#ADD $neededEP 20}
+    //#MATH $neededEP (20*%numitems(@MobList))
+    #IF (%numitems(@MobList)>1) {#ADD $neededEP 30}
+    #ECHO Needed EP: $neededEP, MyEP: %mud.ep
+    #IF (%mud.ep<$neededEP) {
+      #VAR iMob {1} {} VAR
+      StealerHealMe
+    } {StealerNextMob
+    }
+  }
+}
+} $CLASS
+
+#AL StealerNextMob {
+ClassOn Stealer
+$Stealer=%lower(@Stealer)
+ActionDelete "StealerNextMob"
+#ADD iMob 1
+#VAR StealerReady {} {} VAR
+#VAR StealerAction {} {} VAR
+$wait = %random(1,3)*1000
+#WAIT $wait
+#SW (%pos(%lower("BaraddurStairs"),$Stealer)) {StealerBDStairsEXE
+} (%pos(%lower("Pelennor"),$Stealer)) {StealerColumnWalkerEXE
+} (%pos(%lower("Anorien"),$Stealer)) {StealerColumnWalkerEXE
+} (@iMob>%numitems(@MobList)) {StealerNextRoom
+} {
+  #SW (%pos(%lower("MinasTirith"),$Stealer)) {MinasTirithNextRoomConditions
+  } (%pos(%lower("GWSCamp"),$Stealer)) {StealerGWSCampEXE
+  } (%pos(%lower("LogCamp"),$Stealer)) {StealerLogCampEXE
+  } {StealerEXE}
+}
+} $CLASS
+
+#AL StealerHealMe {
+StealPause
+ClassOff Stealer
+#VAR StealerReady {} {} VAR
+ActionAdd "StealerEXEPrep"
+$Stealer=%lower(@Stealer)
+$MyAlign=%lower(@MyPublicAlign)
+$myFaction=%lower(@MyFaction)
+//#VAR CurRoom {%roomnum()} {} VAR
+//#IF (%roomid()) {#VAR CurRoom {%roomid()} {} VAR}
+StealStat
+#IF (%ismember($Stealer,%lower("BaraddurStairs"))) {
+  PauseWalk
+  StealerDeactivatetriggers
+  ActionAdd "#WALK @CurRoom;ActionNext"
+  #IF (@NeedES) {ActionAdd %concat("SIGHT ON",";BotOn Sight;ES;ActionNext")}}
+#IF (($myFaction="servant") AND ($MyAlign!=%lower("Shadowspawn of Mordor"))) {disguise align off}
+ActionAdd "HealMe"
+ActionNext
+} $CLASS
+
+
+#AL StealerEnd {
+RESET_Stealer
+SysMsg Moving to MyBox in 5s: @MyBox;StealStop
+ActionClear
+ActionAdd "#ALA Sleep {+5:30} {do trigger off,i,put all in strongbox;sleep}"
+ActionAdd "GoMyBox;d;rent tiny box;GoMyBox;rest;trigger The sun has risen, and it is time to check out of the camp. todo do out,down,rent tent,rent room,tent,up;legend me;i;ActionNext"
+ActionAdd "HealMe"
+ActionAdd "meditate;ActionNext"
+ActionAdd "#WALK Meditate;ActionNext"
+#IF (%lower(@MyFaction)!=%lower("FR")) {ActionAdd "disguise align off;ActionNext"}
+#WAIT %random(3,5) *1000
+ActionNext
+} $CLASS
+
+#AL StealAgain {
+ClassOn Stealer
+StealerCooldownOn
+#UNT StealTimer
+$timer=%random(1,2)
+#ALA "StealTimer" +1 {StealNow} $Settings
+} $CLASS
+
+#AL StealNow {
+ClassOn Stealer
+#IF ((@StealItem) && (@StealTar)) {#VAR StealerAction {%concat("steal ",@StealItem," from ",@StealTar)} {} VAR
+} {#VAR StealerAction {} {} VAR}
+//#IF (%roomnum()!=%roomnum(@CurRoom)) {#WALK @CurRoom} {glance}
+#WALK @CurRoom
+#EXE {@StealerAction}
+} $CLASS
+
+#AL StealForce {
+StealerCooldownOff
+StealNow
+} $CLASS
+
+#AL StealPause {
+SysMsg "Pausing Stealer..."
+StopWalk
+StealStat
+} $CLASS
+
+#CLASS 0
