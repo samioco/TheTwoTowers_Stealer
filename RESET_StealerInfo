@@ -1,0 +1,158 @@
+#CLASS 0
+$CLASS = "Tools|Stealer|Info"
+#AL StealerDeactivatetriggers {
+#T- BaraddurStairMobs
+#T- StealerRobMob
+#T- StealerRoomShort
+#T- StealerMobCount
+#T- LogCampGunthruktu
+#T- LogCampGuardBlock
+#T- GWSCampInside
+#T- GWSCampGuardBlock
+#T- MinasTirithInside
+#T- MinasTirithOutside
+#T- MinasTirithRope
+#T- GrondBlock
+#T- RejectEvils
+#T- DisguiseCombat
+#T- ApothecaryDoor
+#T- MTMerchantDoor
+#T- Raphial
+#T- CorsairKeep_Fail
+#T- HideSuccess
+#T- HideFail
+#T- StealerCooldown
+#T- StealAgain
+#T- StealerNextMob
+#T- GoldInPockets
+#T- GoldCheck
+#T- StealWhat
+#T- StealerCombat
+#T- StealerLowEP
+#T- CantStealWhileMounted
+#T- NeedFreeHand
+#T- AutoDeposit
+#T- CorsairKeepFail
+#UNT StealTimer
+StealerCooldownOff
+} $CLASS
+
+#AL StealerActivateCoretriggers {
+#T+ HideSuccess
+#T+ HideFail
+#T+ StealerCooldown
+#T+ StealAgain
+#T+ StealerNextMob
+#T+ GoldInPockets
+#T+ GoldCheck
+#T+ StealWhat
+#T+ StealerCombat
+#T+ StealerLowEP
+#T+ CantStealWhileMounted
+#T+ NeedFreeHand
+#T+ AutoDeposit
+} $CLASS
+
+#AL StealerGetRoomData {
+$roomData=""
+$set=@{%concat("Stealer",@Stealer)}
+#IF (@iRoom<=%numitems($set)) {
+  $roomData=%item($set,@iRoom)
+  #VAR CurRoom {%copy($roomData,1,%pos("||",$roomData)-1)} {} VAR
+  #VAR MobList {%copy($roomData,%pos("||",$roomData)+2,%len($roomData)-%pos("||",$roomData)-1)} {} VAR
+  #ECHO RoomData: @CurRoom, MobList: @MobList
+}
+} $CLASS
+
+#AL StealerCountMobs {
+//Param: Set Name
+$set=@{%concat("Stealer",%0)}
+$roomData=""
+#VAR StealerMobCount {0} {} VAR
+#LOOP %numitems($set) {
+  $roomData=%item($set,%i)
+  $MobList = %copy($roomData,%pos("||",$roomData)+2,%len($roomData)-%pos("||",$roomData)-1)
+  #ADD StealerMobCount %numitems($MobList)
+}
+SysMsg StealerCountMobs: @StealerMobCount
+} $CLASS
+
+
+#AL StealStop {
+SysMsg Current Stealer: @Stealer
+SysMsg Stopping Stealer...
+#UNT "Alarm_Stealer"
+StopWalk
+RESET_Stealer
+ActionClear
+StealStat
+} $CLASS
+
+#AL StealerClear {
+#VAR StealerQueue {} {} VAR
+SysMsg "StealerQueue cleared."
+StealerShow
+} $CLASS
+
+#AL StealStat {
+#CR
+SysMsg "Stealer Status:"
+StealerShow
+StealerAbortRatioCalculate
+SysMsg Stealer: @Stealer
+SysMsg CurRoom: @CurRoom, iMob/Total: @iRoom/%numitems(@Stealer)
+SysMsg Mobs: @MobList, @iMob/%numitems(@MobList)
+SysMsg AbortCount: @StealerAbortCount, Abort Ratio: %format(2,@StealerAbortRatio)
+SysMsg StealerAction: @StealerAction
+} $CLASS
+
+#AL StealerShow {
+SysMsg StealerQueue:
+#LOOP @StealerQueue {SysMsg %i: %item(@StealerQueue,%i)}
+} $CLASS
+
+#AL StealerColumnStat {
+#ECHO Column: @StealerColumnNum, Row: @StealerRoomCount, MobCount: @StealerMobCount, Positions: @StealerMobListPositions
+} $CLASS
+
+#AL StealerCooldownSet {
+StealerCooldownOn
+#ALA "StealerCooldown" +5 {
+StealerCooldownOff
+#IF ((@StealerAction) && (%class(Tools|Stealer|Cooldown))) {StealNow}
+} Tools|Stealer
+} $CLASS
+
+#AL StealerCooldownOff {
+$Cooldown = "Tools|Stealer|Cooldown"
+//#DELCLASS $Cooldown
+#CLASS $Cooldown
+#CLASS 0
+#T+ $Cooldown
+SysMsg Stealer is Off Cooldown!
+} $CLASS
+
+#AL StealerCooldownOn {
+$Cooldown = "Tools|Stealer|Cooldown"
+//#DELCLASS $Cooldown
+#CLASS $Cooldown
+#CLASS 0
+#T- $Cooldown
+SysMsg Stealer is On Cooldown!
+} $CLASS
+
+#AL StealerAbortRatioAdd {
+$gold = %number(%0)
+#IF ($gold<50) {
+#ADD StealerAbortCount 1
+StealerAbortRatioCalculate
+SysMsg StealerAbortCount: @StealerAbortCount, Fail Ratio: %format(2,@StealerAbortRatio)
+}
+} $CLASS
+
+#AL StealerAbortRatioCalculate {
+#VAR StealerAbortRatio {0} {} VAR
+#MATH StealerAbortRatio %float(%float(@StealerAbortCount)/%float(@StealerMobCount))
+} $CLASS
+
+#CLASS 0
