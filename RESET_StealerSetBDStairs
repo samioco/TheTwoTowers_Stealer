@@ -1,0 +1,63 @@
+#CLASS 0
+$CLASS = "Tools|Stealer|StealerBDStairs"
+#AL StealerBDStairs {
+StealerBDStairsINIT
+StealerBDStairsEXE
+} $CLASS
+
+#AL StealerBDStairsINIT {
+RESET_StealerVariables
+StealerDeactivatetriggers
+#VAR Stealer {"BaraddurStairs"} {} VAR
+#VAR NeedES {1} {} VAR
+#VAR StealerMobCount {20} {} VAR
+//#IF (@iMob<1) {#VAR CurRoom {"BDI"} {} VAR}
+#IF (!%ismember(%roomname(),@ROOMS_BDStairs)) {#VAR CurRoom {"BDi"} {} VAR}
+} $CLASS
+
+#AL StealerBDStairsEXE {
+//#VAR NeedES {1} {} VAR
+//#IF (@iMob<1) {#VAR CurRoom {"BDi"} {} VAR}
+#IF (!%ismember(%roomname(),@ROOMS_BDStairs)) {#VAR CurRoom {"BDi"} {} VAR}
+#T- BaraddurStairMobs
+StealStat
+#WALK @CurRoom
+TE @CurRoom
+$WalkPath=%pathfrom(,"BD1")
+$WalkPath=%concat($WalkPath,";.(SysMsg BD Stairs Completed.")
+$WalkPath=%concat($WalkPath,";StopWalk;ES off;#VAR NeedES {} {} VAR;#WALK SOTE;touch altar")
+$WalkPath=%concat($WalkPath,";StealerNextSet)")
+#PATH WalkPath $WalkPath
+ActionClear
+#IF (@NeedES) {
+  ActionAdd "StealerBDStairsEXE"
+  SIGHT ON
+} {
+  ClassOn Stealer
+  StealerActivateCoretriggers
+  #T+ BaraddurStairMobs
+  #IF (@StealerAction) {StealNow} {StartWalk}
+}
+} $CLASS
+
+$CLASS = "Tools|Stealer|Settings"
+#TR BaraddurStairMobs {^ ({@StealerBDStairMobs})} {
+StealPause
+#ADD iMob 1
+#CW high,cyan
+#VAR CurRoom {%roomnum()} {} VAR
+#IF (%roomid()) {#VAR CurRoom {%roomid()} {} VAR}
+#VAR StealItem {"all gold"} {} VAR
+#SW (%pos("sorcerer",%lower(%1))) {#VAR StealTar {"sorcerer"} {} VAR
+} (%pos("uruk",%lower(%1))) {#VAR StealTar {"uruk"} {} VAR
+} (%pos("troll",%lower(%1))) {#VAR StealTar {"troll"} {} VAR
+} (%pos("olog-hai",%lower(%1))) {#VAR StealTar {"troll"} {} VAR
+} (%pos("orc",%lower(%1))) {#VAR StealTar {"orc"} {} VAR
+} (%pos("easterling",%lower(%1))) {#VAR StealTar {"easterling"} {} VAR}
+#VAR StealerAction {%concat("steal ",@StealItem," from ",@StealTar)} {} VAR
+StealStat
+StealNow
+} $CLASS
+#T- BaraddurStairMobs
+
+#CLASS 0
