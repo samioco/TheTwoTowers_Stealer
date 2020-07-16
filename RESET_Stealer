@@ -1,0 +1,20 @@
+#CLASS 0
+RESET_StealerEXE
+RESET_StealerActions
+RESET_StealerInfo
+RESET_StealerAllSets
+RESET_StealerBDStairs
+RESET_StealerMinasTirith
+RESET_StealerColumnWalker
+RESET_StealerGWSCamp
+RESET_StealerLogCamp
+RESET_StealerVariables
+RESET_StealerSettings
+RESET_StealerMessages
+
+#IF (%alias(MyProfileVars)) {MyProfileVars}
+#IF (%alias(StealerDeactivateTriggers)) {StealerDeactivateTriggers}
+#IF (%alias(ActionClear)) {ActionClear}
+#IF (%alias(StealerClear)) {StealerClear}
+ClassOff Stealer
+#CLASS 0
