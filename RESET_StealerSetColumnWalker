@@ -1,0 +1,115 @@
+#CLASS 0
+$CLASS = "Tools|Stealer|EXE"
+#AL StealerPelennor {
+StealerPelennorINIT
+StealerColumnWalkerEXE
+} $CLASS
+
+#AL StealerPelennorINIT {
+RESET_StealerVariables
+StealerDeactivatetriggers
+#VAR Stealer {"Pelennor"} {} VAR
+#VAR StealerColumnTop {"PelTop"} {} VAR
+#VAR StealerColumnTop {"PelBot"} {} VAR
+#VAR StealerMobs {@StealerPelennorMobs} {} VAR
+#VAR StealerRoomShort {@StealerPelennorRooms} {} VAR
+#VAR StealerMobCount {20} {} VAR
+} $CLASS
+
+#AL StealerAnorien {
+StealerAnorienINIT
+StealerColumnWalkerEXE
+} $CLASS
+
+#AL StealerAnorienINIT {
+RESET_Stealer
+#VAR Stealer {"Pelennor"} {} VAR
+#VAR StealerColumnTop {"AnoTop"} {} VAR
+#VAR StealerColumnTop {"AnoBot"} {} VAR
+#VAR StealerMobs {@StealerAnorienMobs} {} VAR
+#VAR StealerRoomShort {@StealerAnorienRooms} {} VAR
+#VAR StealerMobCount {10} {} VAR
+} $CLASS
+
+#AL StealerColumnWalkerEXE {
+StealerColumnStat
+StealerDeactivatetriggers
+StealerActivateCoretriggers
+ClassOn Stealer
+$ColumnTop=""
+$columnBottom=""
+$NextMobPos=""
+$DistanceToNextMob=0
+$currentRoomPos=0
+#SW (@StealerAction) {
+  #WALK @CurRoom
+  StealNow
+} (%numitems(@StealerMobListPositions)) {
+  $currentRoomPos=@StealerRoomCount
+  $NextMobPos=%item(@StealerMobListPositions,%numitems(@StealerMobListPositions))
+  #ECHO Removing last mob: %item(@StealerMobListPositions,%numitems(@StealerMobListPositions))
+  StealerColumnStat
+  #DELN StealerMobListPositions %numitems(@StealerMobList_Positions)
+  #MATH $DistanceToNextMob %abs(%abs($currentRoomPos)-%abs($NextMobPos))
+  #ECHO Distance: $DistanceToNextMob
+  #VAR StealerRoomCount {$NextMobPos} {} VAR
+  BotOn Stealer
+  #T+ PelennorMobs
+  $northPath=""
+  #SW ($DistanceToNextMob=0) {$northPath=""
+  } ($DistanceToNextMob=1) {$northPath=".n"
+  } {$northPath=%concat(".",$DistanceToNextMob,"n")}
+  #ECHO Path to next mob: $northPath
+  #IF ($DistanceToNextMob) {#EXE {$northPath}} {glance}
+} (@StealerColumnNum<=38) {
+  $colNum=@StealerColumnNum
+  #VAR StealerMobCount {0} {} VAR
+  #VAR StealerMobListPositions {} {} VAR
+  #VAR StealerRoomCount {0} {} VAR
+  $ColumnTop=%concat(@StealerColumnTop,$colNum)
+  $columnBottom=%concat(@StealerColumnBottom,$colNum)
+  StealerColumnStat
+  #WALK $ColumnTop
+  DistanceTo $columnBottom
+  $southPath=""
+  #SW (@Distance=0) {$southPath=""
+  } (@Distance=1) {$southPath=".s"
+  } {$southPath=%concat(".",@Distance,"s")}
+  $action="#WAIT 500;StealerPelennor_EXE";ActionAdd $action
+  ActionAdd %concat("#WAIT 500;#T- StealerMobCount;#T- StealerRoomShort;StealerColumnStat;ActionNext")
+  ActionAdd %concat("#WAIT 500;#T+ StealerMobCount;#T+ StealerRoomShort;",$southPath,";ActionNext")
+  #ADD StealerColumnNum 1
+  ActionNext
+} {
+  #ECHO All Columns Searched!
+  StealerNextSet}
+} $CLASS
+
+$CLASS = "Tools|Stealer|Settings"
+#TR StealerRoomShort {{@StealerRoomShort}} {
+#ADD StealerRoomCount 1
+#ECHO StealerRoomCount: @StealerRoomCount
+} $CLASS
+
+
+#TR StealerMobCount {^ {@StealerMobs}} {
+#ECHO TROLL SEEN: @StealerRoomCount South of @Pelennor_ColumnTop
+#ADD StealerMobCount 1
+#ADDI StealerMobListPositions @StealerRoomCount
+StealerColumnStat
+} $CLASS
+
+#TR StealerRobMob {^ {@StealerMobs}} {
+#T- StealerRobMob
+#VAR StealItem {"all gold"} {} VAR
+#VAR StealTar {"troll"} {} VAR
+#VAR StealerAction {%concat("steal ",@StealItem," from ",@StealTar)} {} VAR
+#VAR CurRoom {%roomnum()} {} VAR
+StealNow
+} $CLASS
+
+#T- StealerRobMob
+#T- StealerRoomShort
+#T- StealerMobCount
+
+#CLASS 0
